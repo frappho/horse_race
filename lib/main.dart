@@ -66,7 +66,7 @@ class _HorseRaceHomePageState extends State<HorseRaceHomePage> {
   }
 
   void advanceRace() {
-    /// End race, if game is over
+    /// End race, if game is over.
     if (deck.isEmpty) {
       setState(() {
         resetRace();
