@@ -51,7 +51,7 @@ class _HorseRaceHomePageState extends State<HorseRaceHomePage> {
     super.initState();
     _initializeDeck();
   }
-
+    ///Initializing card deck
   void _initializeDeck() {
     deck.clear();
     for (var suit in suits) {
@@ -143,6 +143,7 @@ class _HorseRaceHomePageState extends State<HorseRaceHomePage> {
     );
   }
 
+  ///Reset the race
   void resetRace() {
     setState(() {
       currentCard = "";
@@ -230,7 +231,7 @@ class _HorseRaceHomePageState extends State<HorseRaceHomePage> {
                       }
 
                       if (col == 0 && row > 0 && row < 7) {
-                        /// Verdeckte Karten links (erste Spalte)
+                        /// Negative cards(first Column)
                         return Column(
                           children: [
                             Card(
@@ -247,7 +248,7 @@ class _HorseRaceHomePageState extends State<HorseRaceHomePage> {
                           ],
                         );
                       } else if (col > 0 && col <= 4 && row == horsePositions[col - 1]) {
-                        /// Ass Karten im Grid positioniert basierend auf horsePositions
+                        /// Horses (Ace cards) in grid
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -267,7 +268,7 @@ class _HorseRaceHomePageState extends State<HorseRaceHomePage> {
                           ],
                         );
                       } else {
-                        /// Leere Slots im Grid
+                        /// Empty slots in Grid
                         return const SizedBox();
                       }
                     },
