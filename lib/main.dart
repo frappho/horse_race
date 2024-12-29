@@ -66,7 +66,7 @@ class _HorseRaceHomePageState extends State<HorseRaceHomePage> {
   }
 
   void advanceRace() {
-    /// Wenn das Deck leer ist, beende das Rennen
+    /// End race, if game is over
     if (deck.isEmpty) {
       setState(() {
         resetRace();
@@ -77,19 +77,19 @@ class _HorseRaceHomePageState extends State<HorseRaceHomePage> {
     setState(() {
       count += 1;
       //print(count);
-      /// Ziehe die nächste Karte aus dem Deck
+      /// Get the next card from the deck
       currentCard = deck.removeLast();
       //print(deck);
       String suit = currentCard.substring(0, 1);
       int horseIndex = suits.indexOf(suit);
 
-      /// Bewege das jeweilige Pferd weiter, solange es unter der Grenze von 7 (im Ziel) ist
+      /// Move the horse, as long as it is under index 7 (goal)
       if (horseIndex != -1 && horseCounters[horseIndex] < 7) {
         horsePositions[horseIndex]--;
         horseCounters[horseIndex]++;
       }
 
-      /// Logik zum Umdrehen der verdeckten Karten von unten nach oben
+      /// Logic to unhide the negative cards on the left
       for (int i = 1; i < cardRevealed.length; i++) {
         if (horseCounters.every((count) => count >= i) && !cardRevealed[7 - i]) {
           cardRevealed[7 - i] = true;
@@ -100,7 +100,7 @@ class _HorseRaceHomePageState extends State<HorseRaceHomePage> {
           if (backHorseIndex != -1 && horseCounters[backHorseIndex] > 0) {
             gameOver = true;
 
-            /// Verzögere die Rückkehr des Pferdes um x ms
+            /// Time delay of horse for 700 ms
             Future.delayed(const Duration(milliseconds: 700), () {
               count == 0
                   ? null
@@ -115,14 +115,14 @@ class _HorseRaceHomePageState extends State<HorseRaceHomePage> {
         }
       }
 
-      /// Wenn ein Pferd das Ziel erreicht, beende das Rennen und zeige den Gewinner
+      /// When a horse got into the goal, end the game and show the winner
       if (horseCounters.any((count) => count > cardRevealed.length - 1)) {
         winner = suits[horseCounters.indexWhere((count) => count > cardRevealed.length - 1)];
         _endGame();
       }
     });
   }
-
+      ///Explanation (i) symbol
   void showExplanationDialog(BuildContext context, String explanationText) {
     showDialog(
       context: context,
